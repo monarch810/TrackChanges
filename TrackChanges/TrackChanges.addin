@@ -5,8 +5,8 @@
     <Description>Some description for TrackChanges</Description>
     <Assembly>TrackChanges.dll</Assembly>
     <FullClassName>TrackChanges.Command</FullClassName>
-    <ClientId>e3210cad-a710-4b6f-9470-999642bf8df4</ClientId>
-    <VendorId>com.typepad.thebuildingcoder</VendorId>
-    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+    <ClientId>e2324cad-a710-4b6f-9470-999642bf8d88</ClientId>
+    <VendorId>migliaccio.nicholas</VendorId>
+    <VendorDescription>Nicholas Migliaccio, Atlanta</VendorDescription>
   </AddIn>
 </RevitAddIns>

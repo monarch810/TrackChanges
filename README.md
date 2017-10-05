@@ -86,6 +86,7 @@ Jeremy Tammik,
 ## Contributors
 
 - Jason Schaeffer [@joespiff](https://github.com/joespiff)
+- Nicholas Migliaccio
 
 
 ## License
