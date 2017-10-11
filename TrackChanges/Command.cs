@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -647,10 +648,15 @@ public class Command : IExternalCommand
 
     string s = string.Join( "\r\n", report );
 
+    string path = doc.PathName;
+
     Debug.Print( msg + "\r\n" + s );
+
+    System.IO.File.WriteAllText(@"..\Report\")
     TaskDialog dlg = new TaskDialog( "Track Changes" );
     dlg.MainInstruction = msg;
-    dlg.MainContent = s;
+    dlg.MainContent = "placeholder for rooms report";
+    dlg.ExpandedContent = s;
     dlg.Show();
   }
   #endregion // Report differences
@@ -674,6 +680,7 @@ public class Command : IExternalCommand
     UIDocument uidoc = uiapp.ActiveUIDocument;
     Application app = uiapp.Application;
     Document doc = uidoc.Document;
+    
 
     IEnumerable<Element> a = GetTrackedElements( doc );
 
