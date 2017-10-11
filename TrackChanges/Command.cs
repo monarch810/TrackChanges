@@ -652,7 +652,7 @@ public class Command : IExternalCommand
 
     Debug.Print( msg + "\r\n" + s );
 
-    System.IO.File.WriteAllText(@"..\Report\")
+    System.IO.File.WriteAllText("c:/Report.txt", msg + "\r\n" + s);
     TaskDialog dlg = new TaskDialog( "Track Changes" );
     dlg.MainInstruction = msg;
     dlg.MainContent = "placeholder for rooms report";
