@@ -29,20 +29,19 @@ namespace TrackChanges
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("NM MME");
 
             // Create a push button to trigger a command add it to the ribbon panel.
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             PushButtonData buttonData = new PushButtonData("cmdTrackChanges",
-               "Track Changes", thisAssemblyPath, "TrackChanges.Command");
+               "Track Changes", @"C:\ProgramData\Autodesk\Revit\Addins\TrackChanges\TrackChanges.dll", "TrackChanges.Command");
 
             PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
 
             // Optionally, other properties may be assigned to the button
             // a) tool-tip
-            pushButton.ToolTip = "First toggle takes a current snapshot of this model, second toggle compares a fresh snapshot to previous and reports on differences.";
+            //pushButton.ToolTip = "First toggle takes a current snapshot of this model, second toggle compares a fresh snapshot to previous and reports on differences.";
 
-            // b) large bitmap
-            Uri uriImage = new Uri(@"C:\ProgramData\Autodesk\Revit\Addins\TrackChanges\noun_1050.png");
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            pushButton.LargeImage = largeImage;
+            //// b) large bitmap
+            //Uri uriImage = new Uri(@"C:\ProgramData\Autodesk\Revit\Addins\TrackChanges\noun_1050.png");
+            //BitmapImage largeImage = new BitmapImage(uriImage);
+            //pushButton.LargeImage = largeImage;
 
             return Result.Succeeded;
         }

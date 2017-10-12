@@ -75,7 +75,6 @@
     <PostBuildEvent>copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2015"
 copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2016"
 copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2017"
-copy "$(TargetDir)TrackChanges.dll" "C:\ProgramData\Autodesk\Revit\Addins\TrackChanges"
-copy "$(TargetDir)noun_1050.png" "C:\ProgramData\Autodesk\Revit\Addins\TrackChanges"</PostBuildEvent>
+copy "$(TargetDir)TrackChanges.dll" "C:\ProgramData\Autodesk\Revit\Addins\TrackChanges"</PostBuildEvent>
   </PropertyGroup>
 </Project>
