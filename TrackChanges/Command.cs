@@ -733,7 +733,8 @@ namespace TrackChanges
         static void ReportDifferences(
           Document doc,
           Dictionary<int, string> start_state,
-          Dictionary<int, string> end_state)
+          Dictionary<int, string> end_state,
+          string room_report)
         {
             int n1 = start_state.Keys.Count;
             int n2 = end_state.Keys.Count;
@@ -802,11 +803,92 @@ namespace TrackChanges
             System.IO.File.WriteAllText("c:/Report.txt", msg + "\r\n" + s);
             TaskDialog dlg = new TaskDialog("Track Changes");
             dlg.MainInstruction = msg;
-            dlg.MainContent = "placeholder for rooms report";
+            dlg.MainContent = room_report;
             dlg.ExpandedContent = s;
             dlg.Show();
         }
         #endregion // Report differences
+
+        #region Report differences for rooms
+        /// <summary>
+        /// Compare the start and end states and report the 
+        /// differences found(rooms). For rooms, we store the 
+        /// full string then compute the differences for reporting
+        /// </summary>
+        static string ReportDifferencesRooms(
+          Document doc,
+          Dictionary<int, string> start_state,
+          Dictionary<int, string> end_state)
+        {
+            int n1 = start_state.Keys.Count;
+            int n2 = end_state.Keys.Count;
+
+            List<int> keys = new List<int>(start_state.Keys);
+
+            foreach (int id in end_state.Keys)
+            {
+                if (!keys.Contains(id))
+                {
+                    keys.Add(id);
+                }
+            }
+
+            keys.Sort();
+
+            int n = keys.Count;
+
+            Debug.Print(
+              "{0} rooms before, {1} rooms after, {2} total",
+              n1, n2, n);
+
+            int nAdded = 0;
+            int nDeleted = 0;
+            int nModified = 0;
+            int nIdentical = 0;
+            List<string> report = new List<string>();
+
+            foreach (int id in keys)
+            {
+                if (!start_state.ContainsKey(id))
+                {
+                    ++nAdded;
+                    report.Add(id.ToString() + " added "
+                      + ElementDescription(doc, id));
+                }
+                else if (!end_state.ContainsKey(id))
+                {
+                    ++nDeleted;
+                    report.Add(id.ToString() + " deleted");
+                }
+                else if (start_state[id] != end_state[id])
+                {
+                    ++nModified;
+                    report.Add(id.ToString() + " modified "
+                      + ElementDescription(doc, id));
+                }
+                else
+                {
+                    ++nIdentical;
+                }
+            }
+
+            string msg = string.Format(
+              "Stopped tracking changes now.\r\n"
+              + "{0} deleted, {1} added, {2} modified, "
+              + "{3} identical rooms:",
+              nDeleted, nAdded, nModified, nIdentical);
+
+            string s = string.Join("\r\n", report);
+
+            string path = doc.PathName;
+
+            string fullString = msg + "\r\n" + s;
+
+            Debug.Print(msg + "\r\n" + s);
+
+            return fullString;
+        }
+        #endregion // Report differences for rooms
 
         /// <summary>
         /// Current snapshot of database state.
@@ -844,7 +926,8 @@ namespace TrackChanges
             {
                 Dictionary<int, string> end_state = GetSnapshot(a);
                 Dictionary<int, string> end_rooms = SnapRoomState(r);
-                ReportDifferences(doc, _start_state, end_state);
+                string room_report = ReportDifferencesRooms(doc, _start_rooms, end_rooms);
+                ReportDifferences(doc, _start_state, end_state, room_report);
                 System.IO.File.WriteAllText("c:/ReportRooms.txt", _start_rooms + "\r\n" + "ABOVE OLD, BELOW NEW ***TRANSITION***" + end_rooms);
                 _start_state = null;
                 _start_rooms = null;
