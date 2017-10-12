@@ -330,8 +330,8 @@ namespace TrackChanges
           Transform t,
           Solid s)
         {
-            Debug.Assert(0 < s.Edges.Size,
-              "expected a non-empty solid");
+            //Debug.Assert(0 < s.Edges.Size,
+              //"expected a non-empty solid");
 
             foreach (Face f in s.Faces)
             {
