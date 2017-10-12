@@ -885,7 +885,7 @@ namespace TrackChanges
             string fullString = msg + "\r\n" + s;
 
             Debug.Print(msg + "\r\n" + s);
-
+            System.IO.File.WriteAllText("c:/ReportRooms.txt", msg + "\r\n" + s);
             return fullString;
         }
         #endregion // Report differences for rooms
@@ -928,7 +928,6 @@ namespace TrackChanges
                 Dictionary<int, string> end_rooms = SnapRoomState(r);
                 string room_report = ReportDifferencesRooms(doc, _start_rooms, end_rooms);
                 ReportDifferences(doc, _start_state, end_state, room_report);
-                System.IO.File.WriteAllText("c:/ReportRooms.txt", _start_rooms + "\r\n" + "ABOVE OLD, BELOW NEW ***TRANSITION***" + end_rooms);
                 _start_state = null;
                 _start_rooms = null;
             }
