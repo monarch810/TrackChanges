@@ -70,9 +70,9 @@
     <Delete Files="$(AppData)\Autodesk\REVIT\Addins\2016\TrackChanges.dll" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)TrackChanges.addin" "$(AppData)\Autodesk\REVIT\Addins\2015"
-copy "$(ProjectDir)TrackChanges.addin" "$(AppData)\Autodesk\REVIT\Addins\2016"
-copy "$(ProjectDir)TrackChanges.addin" "$(AppData)\Autodesk\REVIT\Addins\2017"
-copy "$(ProjectDir)bin\release\TrackChanges.dll" "$(AppData)\Autodesk\REVIT\Addins\TrackChanges"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2015"
+copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2016"
+copy "$(ProjectDir)TrackChanges.addin" "C:\ProgramData\Autodesk\Revit\Addins\2017"
+copy "$(TargetDir)TrackChanges.dll" "C:\ProgramData\Autodesk\Revit\Addins\TrackChanges"</PostBuildEvent>
   </PropertyGroup>
 </Project>
