@@ -11,10 +11,49 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.DB.Architecture;
 using BoundarySegment = Autodesk.Revit.DB.BoundarySegment;
+using System.Reflection;
+using System.Windows.Media.Imaging;
 #endregion
 
 namespace TrackChanges
 {
+    /// <remarks>
+    /// This application's main class. The class must be Public.
+    /// </remarks>
+    public class CsAddPanel : IExternalApplication
+    {
+        // Both OnStartup and OnShutdown must be implemented as public method
+        public Result OnStartup(UIControlledApplication application)
+        {
+            // Add a new ribbon panel
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("NM MME");
+
+            // Create a push button to trigger a command add it to the ribbon panel.
+            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+            PushButtonData buttonData = new PushButtonData("cmdTrackChanges",
+               "Track Changes", thisAssemblyPath, "TrackChanges.Command");
+
+            PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
+
+            // Optionally, other properties may be assigned to the button
+            // a) tool-tip
+            pushButton.ToolTip = "First toggle takes a current snapshot of this model, second toggle compares a fresh snapshot to previous and reports on differences.";
+
+            // b) large bitmap
+            Uri uriImage = new Uri(@"C:\ProgramData\Autodesk\Revit\Addins\TrackChanges\noun_1050.png");
+            BitmapImage largeImage = new BitmapImage(uriImage);
+            pushButton.LargeImage = largeImage;
+
+            return Result.Succeeded;
+        }
+
+        public Result OnShutdown(UIControlledApplication application)
+        {
+            // nothing to clean up in this simple case
+            return Result.Succeeded;
+        }
+    }
+
     [Transaction(TransactionMode.ReadOnly)]
     public class Command : IExternalCommand
     {
@@ -331,7 +370,7 @@ namespace TrackChanges
           Solid s)
         {
             //Debug.Assert(0 < s.Edges.Size,
-              //"expected a non-empty solid");
+            //"expected a non-empty solid");
 
             foreach (Face f in s.Faces)
             {
