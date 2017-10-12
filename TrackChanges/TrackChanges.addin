@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
-  <AddIn Type="Command">
+  <AddIn Type="Application">
     <Text>Command TrackChanges</Text>
     <Description>Some description for TrackChanges</Description>
     <Assembly>C:\ProgramData\Autodesk\Revit\Addins\TrackChanges\TrackChanges.dll</Assembly>
-    <FullClassName>TrackChanges.Command</FullClassName>
+    <FullClassName>TrackChanges.CsAddPanel</FullClassName>
     <ClientId>e2324cad-a710-4b6f-9470-999642bf8d88</ClientId>
     <VendorId>migliaccio.nicholas</VendorId>
     <VendorDescription>Nicholas Migliaccio, Atlanta</VendorDescription>
